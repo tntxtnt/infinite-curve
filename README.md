@@ -28,3 +28,5 @@ auto yGen = [&](float x) {
 };
 ```
 Have fun playing with those constants.
+
+(HelvetiPixel.ttf [source](http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=381))
