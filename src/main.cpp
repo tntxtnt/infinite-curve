@@ -16,21 +16,24 @@ int main()
     window.setFramerateLimit(60);
 
     ImprovedPerlinNoise noiseGen;
+    // seed `noiseGen`
     using namespace std::chrono;
     auto seed = duration_cast<duration<unsigned>>(
                     system_clock::now().time_since_epoch())
                     .count();
     noiseGen.shuffle(std::mt19937{seed});
     auto yGen = [&](float x) {
-        float xScale = 2e-3f;
-        float yMagnitude1 = 10;
-        float yMagnitude2 = 120;
-        float yMagnitude3 = 60;
-        float yMagnitude4 = 20;
-        return float(yMagnitude1 * noiseGen.noise(x * xScale * 0.5) +
-                     yMagnitude2 * noiseGen.noise(x * xScale * 1) +
-                     yMagnitude3 * noiseGen.noise(x * xScale * 2) +
-                     yMagnitude4 * noiseGen.noise(x * xScale * 4));
+        const float xScale = 2e-3f;
+        const float yMagnitude1 = 10;
+        const float yMagnitude2 = 120;
+        const float yMagnitude3 = 60;
+        const float yMagnitude4 = 20;
+
+        const float xScaled = x * xScale;
+        return float(yMagnitude1 * noiseGen.noise(xScaled * 0.5) +
+                     yMagnitude2 * noiseGen.noise(xScaled * 1) +
+                     yMagnitude3 * noiseGen.noise(xScaled * 2) +
+                     yMagnitude4 * noiseGen.noise(xScaled * 4));
     };
 
     Curve curve{6.f, window.getSize().x, yGen};
